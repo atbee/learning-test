@@ -17,3 +17,4 @@ jobs:
         run: |
           echo $GITHUB_SHA
           eval $(aws ecr get-login --no-include-email --region ap-southeast-1)
+          aws s3 ls
