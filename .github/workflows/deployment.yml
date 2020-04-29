@@ -23,4 +23,5 @@ jobs:
       run: |
         touch test
         aws s3 ls
-        aws s3 cp test s3://morchana-static-qr-code-deployment/api/production/test
+        aws s3 cp s3://morchana-static-qr-code-deployment/api/production/test test2
+        ls
