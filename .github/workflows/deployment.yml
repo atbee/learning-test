@@ -10,7 +10,7 @@ jobs:
     name: Upload to Amazon S3
     runs-on: ubuntu-latest
     env:
-      ATB: ${{ github.sha:8 }}
+      ATB: ${{ github.sha }}
 
     steps:
     - name: Checkout
@@ -21,5 +21,6 @@ jobs:
         echo ${GITHUB_SHA:7}
         echo ${GITHUB_SHA:8}
         echo ${GITHUB_SHA:0:8}
+        echo ${GITHUB_RUN_NUMBER}
         echo "SHA"
         echo $ATB
