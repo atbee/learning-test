@@ -10,7 +10,7 @@ jobs:
     name: Upload to Amazon S3
     runs-on: ubuntu-latest
     env:
-      ATB: GITHUB_SHA
+      ATB: ${{ github.sha }}
 
     steps:
     - name: Checkout
