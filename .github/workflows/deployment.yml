@@ -13,7 +13,7 @@ jobs:
     #   SHA8: ${GITHUB_SHA::8}
     steps:
       - name: Test
-        run: cat $GITHUB_RUN_ID
+        run: echo $GITHUB_RUN_ID
       # - name: Install Go
       #   uses: actions/setup-go@v1
       #   with:
