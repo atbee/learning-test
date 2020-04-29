@@ -41,9 +41,9 @@ jobs:
         with:
           tf_actions_version: 0.12.13
           tf_actions_subcommand: plan
-          tf_actions_plan_output: tfplan
           tf_actions_working_dir: ./terraform/production/app/
           args: |
+            -out=plan.tfplan
             -var="access_key_id=${{ secrets.AWS_ACCESS_KEY_ID }}"
             -var="secret_access_id=${{ secrets.AWS_SECRET_ACCESS_KEY }}"
             -var="infrastructure_version=${GITHUB_SHA::8}"
