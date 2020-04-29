@@ -9,19 +9,11 @@ jobs:
   deployment:
     name: Deployment
     runs-on: ubuntu-18.04
-    # env:
-    #   SHA8: ${GITHUB_SHA::8}
     steps:
-      - name: Test
+      - name: Authen AWS
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         run: |
-          echo $GITHUB_RUN_ID
           echo $GITHUB_SHA
-      # - name: Install Go
-      #   uses: actions/setup-go@v1
-      #   with:
-      #     go-version: 1.14.x
-      # - uses: actions/checkout@v2
-      # - name: Build images
-      #   run: |
-      #     docker build -t 815882715903.dkr.ecr.ap-southeast-1.amazonaws.com/morchana-static-qr-code-api:latest .
-      #     docker build -t 815882715903.dkr.ecr.ap-southeast-1.amazonaws.com/morchana-static-qr-code-api:$SHA8 .
+          eval $(aws ecr get-login --no-include-email --region ap-southeast-1)
