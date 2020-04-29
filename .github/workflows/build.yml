@@ -6,7 +6,8 @@ on:
       - master
 
 jobs:
-  build:
+  deployment:
+    name: Deployment
     runs-on: ubuntu-18.04
     steps:
       - name: Install Go
@@ -22,7 +23,7 @@ jobs:
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        run: eval $(aws ecr get-login --no-include-email --region ap-northeast-1)
+        run: eval $(aws ecr get-login --no-include-email --region ap-southeast-1)
       - name: Push images
         run: |
           ls
