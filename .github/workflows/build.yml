@@ -26,6 +26,7 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       - name: Push images
         run: |
+          ls
           docker push 815882715903.dkr.ecr.ap-southeast-1.amazonaws.com/morchana-static-qr-code-api:latest
           docker push 815882715903.dkr.ecr.ap-southeast-1.amazonaws.com/morchana-static-qr-code-api:${GITHUB_SHA::8}
       - name: 'Terraform Init'
@@ -36,4 +37,3 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           TF_ACTION_WORKING_DIR: terraform/production/app/
-        run: ls
