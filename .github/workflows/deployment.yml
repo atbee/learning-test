@@ -26,14 +26,13 @@ jobs:
         run: eval $(aws ecr get-login --no-include-email --region ap-southeast-1)
       - name: Push images
         run: |
-          ls
           docker push 815882715903.dkr.ecr.ap-southeast-1.amazonaws.com/morchana-static-qr-code-api:latest
           docker push 815882715903.dkr.ecr.ap-southeast-1.amazonaws.com/morchana-static-qr-code-api:${GITHUB_SHA::8}
       - name: Terraform Init
         uses: hashicorp/terraform-github-actions@master
         with:
           tf_actions_version: 0.12.13
-          tf_actions_subcommand: 'init'
+          tf_actions_subcommand: init
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          TF_ACTION_WORKING_DIR: "./terraform/production/app"
+          TF_ACTION_WORKING_DIR: ./terraform/production/app/
