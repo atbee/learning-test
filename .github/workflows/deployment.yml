@@ -10,8 +10,10 @@ jobs:
     name: Deployment
     runs-on: ubuntu-18.04
     env:
-      SHA8: ${{GITHUB_SHA::8}}
+      SHA8: ${GITHUB_SHA::8}
     steps:
+      - name: Test
+        run: cat $SHA8
       - name: Install Go
         uses: actions/setup-go@v1
         with:
