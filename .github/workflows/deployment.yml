@@ -9,8 +9,6 @@ jobs:
   deployment:
     name: Deployment
     runs-on: ubuntu-18.04
-    env:
-      SHA8: ${GITHUB_SHA::8}
     steps:
       - name: Install Go
         uses: actions/setup-go@v1
@@ -35,15 +33,18 @@ jobs:
             -out=plan.tfplan
             -var="access_key_id=${{ secrets.AWS_ACCESS_KEY_ID }}"
             -var="secret_access_id=${{ secrets.AWS_SECRET_ACCESS_KEY }}"
-            -var="infrastructure_version=$SHA8"
+            -var="infrastructure_version=${GITHUB_SHA::8}"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: Terraform Apply
+      - name: Terraform Destroy
         uses: hashicorp/terraform-github-actions@master
         with:
           tf_actions_version: 0.12.13
-          tf_actions_subcommand: apply
+          tf_actions_subcommand: destroy
           tf_actions_working_dir: ./terraform/production/app/
-          args: plan.tfplan
+          args: |
+            -var="access_key_id=${{ secrets.AWS_ACCESS_KEY_ID }}"
+            -var="secret_access_id=${{ secrets.AWS_SECRET_ACCESS_KEY }}"
+            -var="infrastructure_version=${GITHUB_SHA::8}"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
