@@ -18,13 +18,13 @@ jobs:
         run: |
           docker build -t 815882715903.dkr.ecr.ap-southeast-1.amazonaws.com/morchana-static-qr-code-api:latest .
           docker build -t 815882715903.dkr.ecr.ap-southeast-1.amazonaws.com/morchana-static-qr-code-api:${GITHUB_SHA::8} .
-      - uses: chrislennon/action-aws-cli@1.1
-      - name: Authen amazon
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        run: eval $(aws ecr get-login --no-include-email --region ap-northeast-1)
-      - name: Push images
-        run: |
-          docker push 815882715903.dkr.ecr.ap-southeast-1.amazonaws.com/morchana-static-qr-code-api:latest
-          docker push 815882715903.dkr.ecr.ap-southeast-1.amazonaws.com/morchana-static-qr-code-api:${GITHUB_SHA::8}
+      # - uses: chrislennon/action-aws-cli@1.1
+      # - name: Authen amazon
+      #   env:
+      #     AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      #     AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      #   run: eval $(aws ecr get-login --no-include-email --region ap-northeast-1)
+      # - name: Push images
+      #   run: |
+      #     docker push 815882715903.dkr.ecr.ap-southeast-1.amazonaws.com/morchana-static-qr-code-api:latest
+      #     docker push 815882715903.dkr.ecr.ap-southeast-1.amazonaws.com/morchana-static-qr-code-api:${GITHUB_SHA::8}
