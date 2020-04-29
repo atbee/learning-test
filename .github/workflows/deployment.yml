@@ -9,6 +9,8 @@ jobs:
   deploy:
     name: Upload to Amazon S3
     runs-on: ubuntu-latest
+    env:
+      ATB: ${GITHUB_SHA:8}
 
     steps:
     - name: Checkout
@@ -18,3 +20,4 @@ jobs:
         echo $(echo ${GITHUB_SHA} | cut -c1-8)
         echo ${GITHUB_SHA:7}
         echo ${GITHUB_SHA:8}
+        echo $ATB
