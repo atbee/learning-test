@@ -1,0 +1,30 @@
+name: test and build
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-18.04
+    steps:
+      - name: Install Go
+        uses: actions/setup-go@v1
+        with:
+          go-version: 1.14.x
+      - name: Build images
+        uses: actions/checkout@v2
+        run: |
+          docker build -t 815882715903.dkr.ecr.ap-southeast-1.amazonaws.com/morchana-static-qr-code-api:latest .
+          docker build -t 815882715903.dkr.ecr.ap-southeast-1.amazonaws.com/morchana-static-qr-code-api:${GITHUB_SHA::8} .
+      - name: Authen amazon
+        uses: chrislennon/action-aws-cli@1.1
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        run: eval $(aws ecr get-login --no-include-email --region ap-northeast-1)
+      - name: Push images
+        run: |
+          docker push 815882715903.dkr.ecr.ap-southeast-1.amazonaws.com/morchana-static-qr-code-api:latest
+          docker push 815882715903.dkr.ecr.ap-southeast-1.amazonaws.com/morchana-static-qr-code-api:${GITHUB_SHA::8}
