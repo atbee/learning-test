@@ -9,17 +9,17 @@ jobs:
   build:
     runs-on: ubuntu-18.04
     steps:
-      - name: Install Go
+      - name: 'Install Go'
         uses: actions/setup-go@v1
         with:
           go-version: 1.14.x
       - uses: actions/checkout@v2
-      - name: Build images
+      - name: 'Build images'
         run: |
           docker build -t 815882715903.dkr.ecr.ap-southeast-1.amazonaws.com/morchana-static-qr-code-api:latest .
           docker build -t 815882715903.dkr.ecr.ap-southeast-1.amazonaws.com/morchana-static-qr-code-api:${GITHUB_SHA::8} .
       - uses: chrislennon/action-aws-cli@1.1
-      - name: Authen amazon
+      - name: 'Authen AWS'
         run: aws ecr get-login-password --region ap-southeast-1 | docker login --username AWS --password-stdin 815882715903.dkr.ecr.ap-southeast-1.amazonaws.com/morchana-static-qr-code-api
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
@@ -28,3 +28,11 @@ jobs:
         run: |
           docker push 815882715903.dkr.ecr.ap-southeast-1.amazonaws.com/morchana-static-qr-code-api:latest
           docker push 815882715903.dkr.ecr.ap-southeast-1.amazonaws.com/morchana-static-qr-code-api:${GITHUB_SHA::8}
+      - name: 'Terraform Init'
+        uses: hashicorp/terraform-github-actions@master
+        with:
+          tf_actions_version: 0.12.13
+          tf_actions_subcommand: 'init'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TF_ACTION_WORKING_DIR: ./terraform/production/app/
