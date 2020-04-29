@@ -16,4 +16,5 @@ jobs:
     - name: Test SHA
       run: |
         echo $(echo ${GITHUB_SHA} | cut -c1-8)
-        echo $ATB
+        echo ${GITHUB_SHA:7}
+        echo ${GITHUB_SHA:8}
