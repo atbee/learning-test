@@ -25,5 +25,5 @@ jobs:
         cat <<EOF > version.json 
         {"version" : "$MY_VERSION"}
         EOF
-        echo "oh my test"
+        echo "oh my test 2"
         cat version.json
