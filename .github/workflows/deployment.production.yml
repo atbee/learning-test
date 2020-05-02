@@ -28,3 +28,6 @@ jobs:
         echo $ATB2
         echo "test"
         echo ${ATB2}
+        echo "test2"
+        ATB3=${GITHUB_SHA::8}
+        echo $ATB3
