@@ -21,18 +21,9 @@ jobs:
         node-version: '13.x'
     - name: Test SHA
       run: |
-        echo $(echo ${GITHUB_SHA} | cut -c1-8)
-        echo ${GITHUB_SHA:7}
-        echo ${GITHUB_SHA:8}
-        echo ${GITHUB_SHA:0:8}
-        echo ${GITHUB_RUN_NUMBER}
-        echo "SHA"
-        echo $ATB
-        echo "test1"
-        export ATB2=${GITHUB_SHA::8}
-        echo $ATB2
-        echo "test"
-        echo ${ATB2}
-        echo "test2"
-        ATB3=${GITHUB_SHA::8}
-        echo $ATB3
+        export MY_VERSION $(echo ${GITHUB_SHA} | cut -c1-8)
+        cat <<EOF > version.json 
+        {"version" : "$MY_VERSION"}
+        EOF
+        echo "oh my test"
+        cat version.json
