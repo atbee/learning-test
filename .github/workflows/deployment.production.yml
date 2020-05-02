@@ -24,3 +24,7 @@ jobs:
         echo ${GITHUB_RUN_NUMBER}
         echo "SHA"
         echo $ATB
+        export ATB2=${GITHUB_SHA::8}
+        echo $ATB2
+        echo "test"
+        echo ${ATB2}
