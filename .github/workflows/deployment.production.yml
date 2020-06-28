@@ -1,29 +1,21 @@
-name: Morchana Static QR Code API
+name: Workflow for tags
 
 on:
   push:
-    branches:
-      - master
+    branches: master
+    tags: *
 
 jobs:
   deploy:
-    name: Upload to Amazon S3
+    name: deploy
     runs-on: ubuntu-latest
-    env:
-      ATB: ${{ github.sha }}
 
     steps:
-    - name: Checkout
-      uses: actions/checkout@v2
-    - name: Install node
-      uses: actions/setup-node@v1
-      with:
-        node-version: '13.x'
-    - name: Test SHA
+    - name: test
       run: |
-        export MY_VERSION=$(echo ${GITHUB_SHA} | cut -c1-8)
-        cat <<EOF > version.json 
-        {"version" : "$MY_VERSION"}
-        EOF
-        echo "oh my test 2"
-        cat version.json
+        echo "atb"
+        echo ::set-env name=RELEASE_VERSION::${GITHUB_REF#refs/*/}
+    - name: Test
+      run: |
+        echo $RELEASE_VERSION
+        echo ${{ env.RELEASE_VERSION }}
